@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NTT Dogs</string>
+
+    <string name="dog_bred_for_and_breed_group">%s | %s</string>
+    <string name="dog_image_description">A really cute dog image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
