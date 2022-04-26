@@ -11,7 +11,8 @@
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:src="@drawable/dog1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/dog_name"
@@ -38,7 +39,7 @@
         android:id="@+id/dog_life_span_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Life span:"
+        android:text="@string/life_span_label"
         app:layout_constraintTop_toBottomOf="@id/dog_bred_for_and_breed_group"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="12dp"
@@ -61,7 +62,7 @@
         android:id="@+id/dog_temperament_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Temperament:"
+        android:text="@string/temperament_label"
         app:layout_constraintTop_toBottomOf="@id/dog_life_span_label"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="12dp"
