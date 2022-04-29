@@ -17,14 +17,14 @@ class DogDetailsActivity : AppCompatActivity() {
     }
 
     private val dogId by lazy {
-        intent.getStringExtra(ARG_DOG_ID) ?: "0"
+        intent.getIntExtra(ARG_DOG_ID,0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val dogSelected = mockDogs().find { dog -> dog.id == dogId.toString() }
+        val dogSelected = mockDogs().find { dog -> dog.id == dogId }
 
         setData(dogSelected)
     }
@@ -40,7 +40,7 @@ class DogDetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context, dogId: String) = Intent(
+        fun newIntent(context: Context, dogId: Int) = Intent(
             context, DogDetailsActivity::class.java
         ).apply {
             putExtra(ARG_DOG_ID, dogId)

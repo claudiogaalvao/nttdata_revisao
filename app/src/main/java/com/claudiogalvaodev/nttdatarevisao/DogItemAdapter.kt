@@ -10,7 +10,7 @@ import com.claudiogalvaodev.nttdatarevisao.databinding.DogListItemBinding
 import com.claudiogalvaodev.nttdatarevisao.model.Dog
 
 class DogItemAdapter(
-    val onClickListener: (dogId: String) -> Unit
+    val onClickListener: (dogId: Int) -> Unit
 ): ListAdapter<Dog, DogItemAdapter.DogItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogItemViewHolder {
@@ -23,7 +23,7 @@ class DogItemAdapter(
 
     class DogItemViewHolder(
         private val binding: DogListItemBinding,
-        private val onClickListener: (dogId: String) -> Unit
+        private val onClickListener: (dogId: Int) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dog: Dog) {
@@ -47,7 +47,7 @@ class DogItemAdapter(
         companion object {
             fun create(
                 parent: ViewGroup,
-                onClickListener: (dogId: String) -> Unit
+                onClickListener: (dogId: Int) -> Unit
             ): DogItemViewHolder {
                 val binding = DogListItemBinding
                     .inflate(LayoutInflater.from(parent.context), parent, false)

@@ -6,9 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import com.claudiogalvaodev.nttdatarevisao.client.IDogClient
 import com.claudiogalvaodev.nttdatarevisao.databinding.ActivityDogListBinding
 import com.claudiogalvaodev.nttdatarevisao.model.Dog
-import com.claudiogalvaodev.nttdatarevisao.model.Image
-import com.claudiogalvaodev.nttdatarevisao.model.Measure
-import com.claudiogalvaodev.nttdatarevisao.model.mockDogs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,7 +21,7 @@ class DogListActivity : AppCompatActivity() {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://api.thecatapi.com/")
+            .baseUrl("https://api.thedogapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -58,34 +55,9 @@ class DogListActivity : AppCompatActivity() {
             var listDogs: List<Dog>
             withContext(Dispatchers.IO){
                 //call API
-                val result = dogClient.getPublicDogs()
+                val result = dogClient.getBreeds()
 
-                //transform json to match dog
-                listDogs = result.map { dog ->
-                    Dog(
-                        id = dog.id,
-                        name = dog.breeds.firstOrNull()?.name ?: "Default Name",
-                        bred_for =  "",
-                        breed_group = "",
-                        life_span = dog.breeds.firstOrNull()?.life_span ?: "",
-                        origin = dog.breeds.firstOrNull()?.origin ?: "",
-                        country_code = dog.breeds.firstOrNull()?.country_code,
-                        reference_image_id = dog.breeds.firstOrNull()?.reference_image_id ?: "",
-                        temperament = dog.breeds.firstOrNull()?.temperament ?: "",
-                        image = Image(
-                            id = dog.id,
-                            url = dog.url,
-                            height = dog.height,
-                            width = dog.width
-                        ),
-                        height = dog.breeds.firstOrNull()?.let{ breed ->
-                            Measure(breed.weight.imperial,breed.weight.metric)
-                        } ?: Measure("",""),
-                        weight = dog.breeds.firstOrNull()?.let{ breed ->
-                            Measure(breed.weight.imperial,breed.weight.metric)
-                        } ?: Measure("","")
-                    )
-                }
+                listDogs = result
             }
 
             setupAdapter(listDogs)
@@ -99,7 +71,7 @@ class DogListActivity : AppCompatActivity() {
 
 
 
-    private fun goToDogDetails(dogId: String) {
+    private fun goToDogDetails(dogId: Int) {
         startActivity(DogDetailsActivity.newIntent(context = this, dogId = dogId))
     }
 }

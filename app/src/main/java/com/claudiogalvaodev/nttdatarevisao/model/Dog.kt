@@ -1,7 +1,7 @@
 package com.claudiogalvaodev.nttdatarevisao.model
 
 data class Dog(
-    val id: String,
+    val id: Int,
     val name: String,
     val bred_for: String,
     val breed_group: String,
@@ -17,7 +17,7 @@ data class Dog(
 
 fun mockDogs() = listOf(
     Dog(
-        id = "1",
+        id = 1,
         name = "Affenpinscher",
         bred_for = "Small rodent hunting, lapdog",
         breed_group = "Toy",
@@ -42,7 +42,7 @@ fun mockDogs() = listOf(
         ),
     ),
     Dog(
-        id = "2",
+        id = 2,
         name = "Afghan Hound",
         bred_for = "Coursing and hunting",
         breed_group = "Hound",
@@ -67,7 +67,7 @@ fun mockDogs() = listOf(
         ),
     ),
     Dog(
-        id = "3",
+        id = 3,
         name = "African Hunting Dog",
         bred_for = "A wild pack animal",
         breed_group = "Toy",
@@ -92,7 +92,7 @@ fun mockDogs() = listOf(
         ),
     ),
     Dog(
-        id = "4",
+        id = 4,
         name = "Airedale Terrier",
         bred_for = "Badger, otter hunting",
         breed_group = "Terrier",
@@ -117,7 +117,7 @@ fun mockDogs() = listOf(
         ),
     ),
     Dog(
-        id = "5",
+        id = 5,
         name = "Akbash Dog",
         bred_for = "Sheep guarding",
         breed_group = "Working",
