@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.claudiogalvaodev.nttdatarevisao.databinding.DogListItemBinding
 import com.claudiogalvaodev.nttdatarevisao.model.Dog
 
 class DogItemAdapter(
-    val onClickListener: (dogId: Int) -> Unit
+    val onClickListener: (dogId: String) -> Unit
 ): ListAdapter<Dog, DogItemAdapter.DogItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogItemViewHolder {
@@ -22,7 +23,7 @@ class DogItemAdapter(
 
     class DogItemViewHolder(
         private val binding: DogListItemBinding,
-        private val onClickListener: (dogId: Int) -> Unit
+        private val onClickListener: (dogId: String) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dog: Dog) {
@@ -32,6 +33,12 @@ class DogItemAdapter(
                 dog.bred_for, dog.breed_group
             )
 
+            Glide
+                .with(binding.root.context)
+                .load(dog.image.url)
+                .centerCrop()
+                .into(binding.dogImage)
+
             binding.root.setOnClickListener {
                 onClickListener.invoke(dog.id)
             }
@@ -40,7 +47,7 @@ class DogItemAdapter(
         companion object {
             fun create(
                 parent: ViewGroup,
-                onClickListener: (dogId: Int) -> Unit
+                onClickListener: (dogId: String) -> Unit
             ): DogItemViewHolder {
                 val binding = DogListItemBinding
                     .inflate(LayoutInflater.from(parent.context), parent, false)
