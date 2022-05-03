@@ -1,9 +1,10 @@
-package com.claudiogalvaodev.nttdatarevisao
+package com.claudiogalvaodev.nttdatarevisao.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.claudiogalvaodev.nttdatarevisao.R
 import com.claudiogalvaodev.nttdatarevisao.databinding.ActivityDogDetailsBinding
 import com.claudiogalvaodev.nttdatarevisao.model.Dog
 import com.claudiogalvaodev.nttdatarevisao.model.mockDogs

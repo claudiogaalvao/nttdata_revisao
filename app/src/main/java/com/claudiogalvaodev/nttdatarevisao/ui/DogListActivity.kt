@@ -1,14 +1,17 @@
-package com.claudiogalvaodev.nttdatarevisao
+package com.claudiogalvaodev.nttdatarevisao.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
+import android.util.Log
+import androidx.activity.viewModels
+import com.claudiogalvaodev.nttdatarevisao.ui.adapter.DogItemAdapter
 import com.claudiogalvaodev.nttdatarevisao.client.IDogClient
 import com.claudiogalvaodev.nttdatarevisao.databinding.ActivityDogListBinding
 import com.claudiogalvaodev.nttdatarevisao.model.Dog
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.claudiogalvaodev.nttdatarevisao.model.DogApiResult
+import com.claudiogalvaodev.nttdatarevisao.repository.DogRepository
+import com.claudiogalvaodev.nttdatarevisao.ui.viewmodel.DogViewModel
+import com.claudiogalvaodev.nttdatarevisao.ui.viewmodel.DogViewModelFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -36,6 +39,10 @@ class DogListActivity : AppCompatActivity() {
         })
     }
 
+    private val dogRepository = DogRepository(dogClient)
+    private val dogFactory = DogViewModelFactory(dogRepository)
+    private val dogViewModel by viewModels<DogViewModel>{ dogFactory }
+
     private val binding by lazy {
         ActivityDogListBinding.inflate(layoutInflater)
     }
@@ -45,25 +52,41 @@ class DogListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.dogListRecyclerview.adapter = dogListAdapter
-
-        getDogs()
-        //setupAdapter(mockDogs())
+        getDogsAndObserve()
     }
 
-    fun getDogs() {
-        lifecycleScope.launch {
-            var listDogs: List<Dog>
-            withContext(Dispatchers.IO){
-                //call API
-                val result = dogClient.getBreeds()
-
-                listDogs = result
+    private fun getDogsAndObserve() {
+        dogViewModel.getDogsFromRetrofit()
+        dogViewModel.dogs.observe(this) { dogApiResult ->
+            when(dogApiResult) {
+                is DogApiResult.Loading -> {
+                    Log.d("INFO", "Loading")
+                }
+                is DogApiResult.Success -> {
+                    Log.d("INFO", "Success")
+                    setupAdapter(dogApiResult.data)
+                }
+                is DogApiResult.Error -> {
+                    Log.d("INFO", "Error: ${dogApiResult.throwable.cause}")
+                }
             }
-
-            setupAdapter(listDogs)
-
         }
     }
+
+//    fun getDogs() {
+//        lifecycleScope.launch {
+//            var listDogs: List<Dog>
+//            withContext(Dispatchers.IO){
+//                //call API
+//                val result = dogClient.getBreeds()
+//
+//                listDogs = result
+//            }
+//
+//            setupAdapter(listDogs)
+//
+//        }
+//    }
 
     fun setupAdapter(list: List<Dog>) {
         dogListAdapter.submitList(list)

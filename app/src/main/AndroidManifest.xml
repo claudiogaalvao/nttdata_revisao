@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NTTDATARevisao">
         <activity
-            android:name=".DogListActivity"
+            android:name=".ui.DogListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".DogDetailsActivity"
+            android:name=".ui.DogDetailsActivity"
             android:exported="true" />
     </application>
 </manifest>
